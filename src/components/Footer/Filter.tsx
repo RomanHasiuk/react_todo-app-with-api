@@ -8,10 +8,10 @@ type Props = {
 
 export const Filter: React.FC<Props> = ({ filter, setFilter }) => (
   <nav className="filter" data-cy="Filter">
-    {(['all', 'active', 'completed'] as FilterStatus[]).map(filterType => (
+    {Object.values(FilterStatus).map(filterType => (
       <a
         key={filterType}
-        href={`#/${filterType === 'all' ? '' : filterType}`}
+        href={`#/${filterType === FilterStatus.ALL ? '' : filterType}`}
         className={`filter__link ${filter === filterType ? 'selected' : ''}`}
         data-cy={`FilterLink${filterType.charAt(0).toUpperCase() + filterType.slice(1)}`}
         onClick={() => setFilter(filterType)}

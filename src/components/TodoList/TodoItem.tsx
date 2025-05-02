@@ -3,6 +3,7 @@
 import React from 'react';
 import { Todo } from '../../types/Todo';
 import { TodoLoader } from './TodoLoader';
+import classNames from 'classnames';
 
 type Props = {
   todo: Todo;
@@ -31,6 +32,8 @@ export const TodoItem: React.FC<Props> = ({
   onDelete,
   editInputRef,
 }) => {
+  const { id, title, completed } = todo;
+
   const handleKeyDown = (e: React.KeyboardEvent, oldTitle: string) => {
     if (e.key === 'Escape') {
       setEditTitle(oldTitle);
@@ -48,14 +51,14 @@ export const TodoItem: React.FC<Props> = ({
   };
 
   return (
-    <div data-cy="Todo" className={`todo ${todo.completed ? 'completed' : ''}`}>
+    <div data-cy="Todo" className={classNames('todo', { completed })}>
       <label className="todo__status-label">
         <input
           data-cy="TodoStatus"
           type="checkbox"
           className="todo__status"
-          checked={todo.completed}
-          onChange={() => onToggle(todo.id, todo.completed)}
+          checked={completed}
+          onChange={() => onToggle(id, completed)}
         />
       </label>
 
@@ -63,7 +66,7 @@ export const TodoItem: React.FC<Props> = ({
         <form
           onSubmit={e => {
             e.preventDefault();
-            onEditSubmit(todo.id, todo.title);
+            onEditSubmit(id, title);
           }}
         >
           <input
@@ -73,8 +76,8 @@ export const TodoItem: React.FC<Props> = ({
             className="todo__title-field"
             value={editTitle}
             onChange={e => setEditTitle(e.target.value)}
-            onBlur={() => handleBlur(todo.title)}
-            onKeyDown={e => handleKeyDown(e, todo.title)}
+            onBlur={() => handleBlur(title)}
+            onKeyDown={e => handleKeyDown(e, title)}
           />
         </form>
       ) : (
@@ -82,16 +85,16 @@ export const TodoItem: React.FC<Props> = ({
           <span
             data-cy="TodoTitle"
             className="todo__title"
-            onDoubleClick={() => onEditStart(todo.id, todo.title)}
+            onDoubleClick={() => onEditStart(id, title)}
           >
-            {todo.title}
+            {title}
           </span>
 
           <button
             type="button"
             className="todo__remove"
             data-cy="TodoDelete"
-            onClick={() => onDelete(todo.id)}
+            onClick={() => onDelete(id)}
             disabled={isDeleting || isUpdating}
           >
             ×

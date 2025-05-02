@@ -19,18 +19,23 @@ export const Footer: React.FC<Props> = ({
   filter,
   setFilter,
   onClearCompleted,
-}) =>
-  todosLength > 0 && (
-    <footer className="todoapp__footer" data-cy="Footer">
-      <span className="todo-count" data-cy="TodosCounter">
-        {`${activeTodosCount} item${activeTodosCount !== 1 ? 's' : ''} left`}
-      </span>
+}) => {
+  const itemsLeftText = `${activeTodosCount} item${activeTodosCount !== 1 ? 's' : ''} left`;
 
-      <Filter filter={filter} setFilter={setFilter} />
+  return (
+    todosLength > 0 && (
+      <footer className="todoapp__footer" data-cy="Footer">
+        <span className="todo-count" data-cy="TodosCounter">
+          {itemsLeftText}
+        </span>
 
-      <ClearCompleted
-        completedTodosCount={completedTodosCount}
-        onClearCompleted={onClearCompleted}
-      />
-    </footer>
+        <Filter filter={filter} setFilter={setFilter} />
+
+        <ClearCompleted
+          completedTodosCount={completedTodosCount}
+          onClearCompleted={onClearCompleted}
+        />
+      </footer>
+    )
   );
+};

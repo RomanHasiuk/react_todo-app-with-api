@@ -20,7 +20,7 @@ import { ErrorNotification } from './components/ErrorNotification';
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [filter, setFilter] = useState<FilterStatus>('all');
+  const [filter, setFilter] = useState<FilterStatus>(FilterStatus.ALL);
   const [isErrorHidden, setIsErrorHidden] = useState(true);
   const [title, setTitle] = useState('');
   const [tempTodo, setTempTodo] = useState<Todo | null>(null);
@@ -223,9 +223,9 @@ export const App: React.FC = () => {
 
   const filteredTodos = todos.filter(todo => {
     switch (filter) {
-      case 'active':
+      case FilterStatus.ACTIVE:
         return !todo.completed;
-      case 'completed':
+      case FilterStatus.COMPLETED:
         return todo.completed;
       default:
         return true;

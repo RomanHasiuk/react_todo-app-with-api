@@ -6,31 +6,35 @@ type Props = {
   todo: Todo;
 };
 
-export const TempTodo: React.FC<Props> = ({ todo }) => (
-  <div data-cy="Todo" className="todo">
-    <label className="todo__status-label" aria-label="Toggle todo status">
-      <input
-        data-cy="TodoStatus"
-        type="checkbox"
-        className="todo__status"
-        checked={todo.completed}
-        readOnly
-      />
-    </label>
+export const TempTodo: React.FC<Props> = ({ todo }) => {
+  const { completed, title } = todo;
 
-    <span data-cy="TodoTitle" className="todo__title">
-      {todo.title}
-    </span>
+  return (
+    <div data-cy="Todo" className="todo">
+      <label className="todo__status-label" aria-label="Toggle todo status">
+        <input
+          data-cy="TodoStatus"
+          type="checkbox"
+          className="todo__status"
+          checked={completed}
+          readOnly
+        />
+      </label>
 
-    <button
-      type="button"
-      className="todo__remove"
-      data-cy="TodoDelete"
-      disabled
-    >
-      ×
-    </button>
+      <span data-cy="TodoTitle" className="todo__title">
+        {title}
+      </span>
 
-    <TodoLoader isActive />
-  </div>
-);
+      <button
+        type="button"
+        className="todo__remove"
+        data-cy="TodoDelete"
+        disabled
+      >
+        ×
+      </button>
+
+      <TodoLoader isActive />
+    </div>
+  );
+};
